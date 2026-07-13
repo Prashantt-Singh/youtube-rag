@@ -234,7 +234,16 @@ Responsible for:
 
 ---
 
-# ▶️ Installation
+# 🚀 Getting Started
+
+You can run the project in **two ways**:
+
+- **Option 1:** Run locally using Python (recommended for development)
+- **Option 2:** Run using Docker (recommended for a consistent environment)
+
+---
+
+# ▶️ Option 1: Run Locally
 
 ## Clone the Repository
 
@@ -282,9 +291,15 @@ Create a `.env` file in the project root.
 GROQ_API_KEY=YOUR_GROQ_API_KEY
 ```
 
+## Run the Application
+
+```bash
+streamlit run app.py
+```
+
 ---
 
-# 🐳 Docker
+# 🐳 Option 2: Run with Docker
 
 Run the application inside a Docker container without installing Python or the project dependencies locally.
 
@@ -300,18 +315,10 @@ docker build -t youtube-rag .
 docker run --rm --env-file .env -p 8501:8501 youtube-rag
 ```
 
-Once the container starts successfully, open:
+Open your browser and visit:
 
 ```text
 http://localhost:8501
-```
-
----
-
-# ▶️ Run the Project
-
-```bash
-streamlit run app.py
 ```
 
 ---
