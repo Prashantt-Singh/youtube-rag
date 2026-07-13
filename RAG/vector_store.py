@@ -1,3 +1,4 @@
+import os
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
@@ -59,13 +60,21 @@ def save_vector_store(vector_store):
 
     vector_store.save_local("Vectorstore/faiss_index")
 
-def load_vector_store(embedding_model):
 
+def load_vector_store(embedding_model):
+    
     #Load the saved FAISS vector store.
     
 
+    index_path = "Vectorstore/faiss_index"
+
+    if not os.path.exists(index_path):
+        raise FileNotFoundError(
+            "No vector database found. Please process a YouTube video first."
+        )
+
     vector_store = FAISS.load_local(
-        "Vectorstore/faiss_index",
+        index_path,
         embedding_model,
         allow_dangerous_deserialization=True
     )
