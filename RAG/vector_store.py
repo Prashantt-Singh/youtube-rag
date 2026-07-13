@@ -3,19 +3,30 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 
 
-def create_documents(transcript):
-
+def create_documents(transcript, chunk_duration=40):
     documents = []
+    block = []
+    start_time = transcript[0].start if transcript else None
 
     for snippet in transcript:
-        document = Document(
-            page_content=snippet.text,
-            metadata={
-                "start": snippet.start
-            }
-        )
+        if start_time is None:
+            start_time = snippet.start
 
-        documents.append(document)
+        block.append(snippet.text)
+
+        if snippet.start - start_time >= chunk_duration:
+            documents.append(Document(
+                page_content=" ".join(block),
+                metadata={"start": start_time}
+            ))
+            block = []
+            start_time = None
+
+    if block:
+        documents.append(Document(
+            page_content=" ".join(block),
+            metadata={"start": start_time}
+        ))
 
     return documents
 
@@ -24,7 +35,7 @@ def split_documents(documents):
 
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
-        chunk_overlap=200
+        chunk_overlap=300
     )
 
     chunks = text_splitter.split_documents(documents)
@@ -62,12 +73,6 @@ def load_vector_store(embedding_model):
     return vector_store
 
 
-def retrieve_documents(vector_store, query):
-
-    #Retrieve the most relevant documents for the user's query.
-    documents = vector_store.similarity_search(
-        query=query,
-        k=4
-    )
-
-    return documents
+def retrieve_documents(vector_store, query, k=8):
+    results = vector_store.similarity_search_with_score(query=query, k=k)
+    return results  

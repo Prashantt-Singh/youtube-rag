@@ -45,24 +45,23 @@ def format_timestamp(seconds):
     return f"{minutes:02d}:{seconds:02d}"
 
 def ask_question(query):
-    #Answer a user's question using the saved FAISS vector store.
-    
+    """Answer a user's question using the saved FAISS vector store."""
 
     embedding_model = load_embedding_model()
 
     vector_store = load_vector_store(embedding_model)
 
-    documents = retrieve_documents(
+    results = retrieve_documents(
         vector_store,
         query
     )
 
     context = "\n\n".join(
-        doc.page_content for doc in documents
+        doc.page_content for doc, score in results
     )
 
     timestamp = format_timestamp(
-        documents[0].metadata["start"]
+        results[0][0].metadata["start"]
     )
 
     llm = load_llm()
@@ -82,3 +81,4 @@ def ask_question(query):
         "answer": answer,
         "timestamp": timestamp
     }
+

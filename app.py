@@ -2,15 +2,15 @@ import streamlit as st
 from RAG.rag import create_rag, ask_question
 
 st.set_page_config(
-    page_title="YouTube Study Assistant",
-    page_icon="🎥",
+    page_title="Multilingual YouTube RAG Assistant",
+    page_icon="🌍 ",
     layout="wide"
 )
 
 # ---------------- Sidebar ---------------- #
 
 with st.sidebar:
-    st.title("🎥 YouTube Study Assistant")
+    st.title("🌍 Multilingual YouTube RAG Assistant")
 
     st.subheader("About")
     st.write(
@@ -42,7 +42,7 @@ col1, col2, col3 = st.columns([1, 2.8, 1])
 
 with col2:
 
-    st.title("🎥 YouTube Study Assistant")
+    st.title("🌍 Multilingual YouTube RAG Assistant")
 
     st.write(
         "Ask questions from any **English or Hindi YouTube video** using Multilingual RAG."

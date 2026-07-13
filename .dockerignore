@@ -17,6 +17,3 @@ Vectorstore/
 
 # VS Code
 .vscode/
-
-# Streamlit Cache
-.streamlit/
