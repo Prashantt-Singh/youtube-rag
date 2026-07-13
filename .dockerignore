@@ -1,0 +1,22 @@
+# Git
+.git
+.gitignore
+
+# Virtual Environment
+.venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Environment Variables
+.env
+
+# FAISS Index
+Vectorstore/
+
+# VS Code
+.vscode/
+
+# Streamlit Cache
+.streamlit/
