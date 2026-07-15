@@ -16,41 +16,33 @@ from langchain_core.output_parsers import StrOutputParser
 
 
 def create_rag(url):
-    #Create and save a FAISS vector store from a YouTube video.
+    #create and save a FAISS vector store from a YouTube video.
     
-
     video_id = get_video_id(url)
-
     transcript, language = get_transcript(video_id)
-
     documents = create_documents(transcript)
-
     chunks = split_documents(documents)
-
     embedding_model = load_embedding_model()
-
     vector_store = create_vector_store(
         chunks,
         embedding_model
     )
-
     save_vector_store(vector_store)
 
+
+
 def format_timestamp(seconds):
-
-
     minutes = int(seconds // 60)
     seconds = int(seconds % 60)
 
     return f"{minutes:02d}:{seconds:02d}"
 
+
+
 def ask_question(query):
-    """Answer a user's question using the saved FAISS vector store."""
-
+    #answer a user's question using the saved FAISS vector store
     embedding_model = load_embedding_model()
-
     vector_store = load_vector_store(embedding_model)
-
     results = retrieve_documents(
         vector_store,
         query
@@ -65,11 +57,8 @@ def ask_question(query):
     )
 
     llm = load_llm()
-
     parser = StrOutputParser()
-
     chain = prompt | llm | parser
-
     answer = chain.invoke(
         {
             "context": context,

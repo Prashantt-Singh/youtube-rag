@@ -7,7 +7,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---------------- Sidebar ---------------- #
 
 with st.sidebar:
     st.title("🌍 Multilingual YouTube RAG Assistant")
@@ -36,7 +35,7 @@ with st.sidebar:
 - Groq
 """)
 
-# ---------------- Main Content ---------------- #
+
 
 col1, col2, col3 = st.columns([1, 2.8, 1])
 
@@ -48,7 +47,7 @@ with col2:
         "Ask questions from any **English or Hindi YouTube video** using Multilingual RAG."
     )
 
-    # ---------------- Process Video ---------------- #
+
 
     st.write("### Enter YouTube URL")
 
@@ -74,15 +73,15 @@ with col2:
 
     st.write("")
 
-    # ---------------- Ask Question ---------------- #
-
+    
     st.write("### Ask a Question")
 
-    question = st.text_input(
+    question = st.text_area(
         "",
         key="question",
-        label_visibility="collapsed"
-    )
+        label_visibility="collapsed",
+        height=80
+)
 
     if st.button("Get Answer"):
 
